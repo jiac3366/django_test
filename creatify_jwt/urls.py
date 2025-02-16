@@ -4,17 +4,15 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from creatify_jwt.views import JWTViewSet
-
-from creatify_jwt import views as creatify_jwt_views
+from creatify_jwt import views
 
 router = DefaultRouter()
-creatify_jwt_views.register_routes(router)
+views.register_routes(router)
 
 
 
 urlpatterns = [
     path("", include(router.urls)),
-    path('signin/', JWTViewSet.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("token/signin/", views.JWTViewSet.as_view(), name="signin"),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

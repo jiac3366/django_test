@@ -4,7 +4,7 @@ from creatify_jwt.models import User
 from creatify_jwt.serializers import UserSerializer, JWTSerializer
 from rest_framework.routers import BaseRouter
 from rest_framework.decorators import action
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenViewBase
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -15,8 +15,9 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().create(request)
 
 
-class JWTViewSet(TokenObtainPairView):
+class JWTViewSet(TokenViewBase):  # generics.GenericAPIView
     serializer_class = JWTSerializer
+
 
 
 def register_routes(router: BaseRouter):

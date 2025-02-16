@@ -8,6 +8,48 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id", "email", "password", "created_at", "updated_at"]
 
 
+    def create(self, validated_data: dict) -> User:
+        validated_data["password"] = User.hash_password(validated_data["password"])
+        return super().create(validated_data)
+
+
+def authenticate(email: str, password: str, **kwargs) -> User:
+    user = User.objects.get(email=email)
+    if not user.check_password(password):
+        raise serializers.ValidationError("Invalid credentials")
+    return user
+
+
 
 class JWTSerializer(TokenObtainPairSerializer):
     username_field = "email"
+    
+    access_token = serializers.CharField(read_only=True)
+    refresh_token = serializers.CharField(read_only=True)
+    
+    
+    def validate(self, attrs: dict) -> dict:
+        authenticate_kwargs = {
+            self.username_field: attrs[self.username_field],
+            "password": attrs["password"],
+        }
+
+        self.user = authenticate(**authenticate_kwargs)
+
+        data = {}
+        refresh = self.get_token(self.user)
+
+        data["refresh"] = str(refresh)
+        data["access"] = str(refresh.access_token)
+
+        return data
+    
+    
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data["access_token"] = data.pop("access")
+        data["refresh_token"] = data.pop("refresh")
+
+        return data
+    
+    
