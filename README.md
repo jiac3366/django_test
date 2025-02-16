@@ -7,7 +7,7 @@ docker compose up
 
 #### API TEST
 
-pls note that attch the `-H 'Content-Type: application/json'` to generate request 
+pls note that attach the `-H 'Content-Type: application/json'` to generate request 
 
 - `/signup/`, testing request:
 
