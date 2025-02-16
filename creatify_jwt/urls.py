@@ -8,7 +8,8 @@ views.register_routes(router)
 
 
 urlpatterns = [
+    
+    path("signin/", views.JWTViewSet.as_view(), name="signin"),
+    path("me/", views.SelfUserView.as_view(), name="me"),
     path("", include(router.urls)),
-    path("token/signin/", views.JWTViewSet.as_view(), name="signin"),
-    path("api/me/", views.SelfUserView.as_view(), name="me"),
 ]

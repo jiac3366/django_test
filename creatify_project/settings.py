@@ -135,9 +135,8 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = "creatify_jwt.User"
 
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
-#     "UPDATE_LAST_LOGIN": True,
-#     "USER_AUTHENTICATION_RULE": "creatify_jwt.authentication.authentication_rule",
-# }
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
+    "UPDATE_LAST_LOGIN": True,
+}
 
