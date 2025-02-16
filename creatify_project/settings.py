@@ -128,12 +128,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "creatify_jwt.authentication.CustomJWTAuthentication",
     ],
 }
 
 
-# AUTH_USER_MODEL = "creatify_jwt.User"
+AUTH_USER_MODEL = "creatify_jwt.User"
 
 # SIMPLE_JWT = {
 #     "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),

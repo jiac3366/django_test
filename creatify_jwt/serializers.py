@@ -6,6 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "password", "created_at", "updated_at"]
+        read_only_fields = ["id", "email"]
 
 
     def create(self, validated_data: dict) -> User:
@@ -43,13 +44,3 @@ class JWTSerializer(TokenObtainPairSerializer):
         data["access"] = str(refresh.access_token)
 
         return data
-    
-    
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        data["access_token"] = data.pop("access")
-        data["refresh_token"] = data.pop("refresh")
-
-        return data
-    
-    

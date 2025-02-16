@@ -23,3 +23,16 @@ curl --request POST \
 
 - `/signin/`, testing request:
 
+```bash
+curl --request POST \
+  --url http://localhost:8000/signup/ \
+  --header 'content-type: application/json' \
+  --data '{
+	"email": "test@test.com",
+	"password": "123"
+}'
+
+```
+
+- `/me/`, testing request:
+
